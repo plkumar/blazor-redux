@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorStandalone", "BlazorStandalone\BlazorStandalone.csproj", "{1865B612-2B05-4425-81F0-01515EA6FE01}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpLib", "FSharp\BlazorStandalone\FSharpLib\FSharpLib.fsproj", "{8268F3C1-83A0-4739-8EE6-5F3C66849A53}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSharp", "FSharp\BlazorStandalone\FSharp\FSharp.csproj", "{15173C13-A488-4676-9B04-2549F9E64831}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorStandalone.Core3", "BlazorStandalone.Core3\BlazorStandalone.Core3.csproj", "{DE91FE31-393F-4EC5-97E4-BC1D55A5AE8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{15173C13-A488-4676-9B04-2549F9E64831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15173C13-A488-4676-9B04-2549F9E64831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15173C13-A488-4676-9B04-2549F9E64831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE91FE31-393F-4EC5-97E4-BC1D55A5AE8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE91FE31-393F-4EC5-97E4-BC1D55A5AE8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE91FE31-393F-4EC5-97E4-BC1D55A5AE8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE91FE31-393F-4EC5-97E4-BC1D55A5AE8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
