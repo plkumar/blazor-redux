@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Blazor;
 using BlazorRedux;
 using BlazorServer.Core31.Data;
+using System.Text.Json;
 
 namespace BlazorServer.Core31
 {
@@ -12,8 +12,9 @@ namespace BlazorServer.Core31
         {
             dispatch(new ClearWeatherAction());
 
-            var forecasts = await http.GetJsonAsync<WeatherForecast[]>(
-                "/sample-data/weather.json");
+            var forecastData = await http.GetStringAsync("/sample-data/weather.json");
+
+            var forecasts = JsonSerializer.Deserialize<WeatherForecast[]>(forecastData);
 
             dispatch(new ReceiveWeatherAction
             {

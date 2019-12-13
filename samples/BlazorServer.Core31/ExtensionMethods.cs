@@ -1,7 +1,8 @@
 ﻿using System;
+using BlazorRedux;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlazorRedux
+namespace BlazorServer.Core31
 {
     public static class ExtensionMethods
     {

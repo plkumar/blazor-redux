@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorServer.Core31.Data;
 using BlazorRedux;
+using System.Net.Http;
 
 namespace BlazorServer.Core31
 {
@@ -35,6 +36,8 @@ namespace BlazorServer.Core31
                 {
                     options.GetLocation = state => state.Location;
                 });
+            services.AddScoped<HttpClient>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
