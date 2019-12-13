@@ -38,6 +38,8 @@ else
     </table>
 }
 
+<button @onclick="async () => await ActionCreators.LoadWeather(Store.Dispatch, Http)" >Reload Weather</button>
+
 @code {
 
     protected override async Task OnInitializedAsync()
