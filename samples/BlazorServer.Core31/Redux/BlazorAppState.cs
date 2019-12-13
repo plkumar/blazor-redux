@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BlazorServer.Core31
 {
-    public class MyState
+    public class BlazorAppState
     {
         public string Location { get; set; }
         public int Count { get; set; }

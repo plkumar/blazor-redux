@@ -7,12 +7,12 @@ namespace BlazorServer.Core31
 {
     public static class Reducers
     {
-        public static MyState RootReducer(MyState state, IAction action)
+        public static BlazorAppState RootReducer(BlazorAppState state, IAction action)
         {
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
 
-            return new MyState
+            return new BlazorAppState
             {
                 Location = Location.Reducer(state.Location, action),
                 Count = CountReducer(state.Count, action),

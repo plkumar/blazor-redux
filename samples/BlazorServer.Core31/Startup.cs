@@ -31,8 +31,8 @@ namespace BlazorServer.Core31
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddReduxStore<MyState, IAction>(
-                new MyState(), Reducers.RootReducer, options =>
+            services.AddReduxStore<BlazorAppState, IAction>(
+                new BlazorAppState(), Reducers.RootReducer, options =>
                 {
                     options.GetLocation = state => state.Location;
                 });
