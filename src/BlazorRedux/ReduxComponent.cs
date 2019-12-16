@@ -7,7 +7,7 @@ namespace BlazorRedux
     public class ReduxComponent<TState, TAction> : ComponentBase, IDisposable
     {
         [Inject] public Store<TState, TAction> Store { get; set; }
-        [Inject] private NavigationManager UriHelper { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         public TState State => Store.State;
 
@@ -20,7 +20,7 @@ namespace BlazorRedux
 
         protected override void OnInitialized()
         {
-            Store.Init(UriHelper);
+            Store.Init(NavigationManager);
             Store.Change += OnChangeHandler;
 
             ReduxDevTools = builder =>
