@@ -1,10 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorRedux;
-using BlazorServer.Core31.Data;
 using System.Text.Json;
+using BlazorWasm.Core31.Data;
 
-namespace BlazorServer.Core31
+namespace BlazorWasm.Core31
 {
     public static class ActionCreators
     {

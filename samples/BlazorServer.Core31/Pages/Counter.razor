@@ -6,11 +6,3 @@
 <p>Current count: @State.Count</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-
-    private void IncrementCount()
-    {
-        Dispatch(new IncrementByValueAction(1));
-    }
-}
