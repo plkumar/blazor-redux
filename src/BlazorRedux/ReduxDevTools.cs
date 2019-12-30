@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.RenderTree;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace BlazorRedux
 {
-    public class ReduxDevTools : BlazorComponent
+    public class ReduxDevTools : ComponentBase
     {
-        // ReSharper disable once RedundantAssignment
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
+
+        protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder)
         {
             var seq = 0;
 

@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.RenderTree;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorRedux
 {
@@ -8,18 +9,15 @@ namespace BlazorRedux
         private HistoricEntry<TState, object> _selectedEntry;
 
         public RenderFragment Debugger;
-        
-        protected override void OnInit()
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            base.OnInit();
+            base.BuildRenderTree(builder);
 
-            // ReSharper disable once RedundantAssignment
-            Debugger = builder =>
-            {
-                var seq = 0;
+            var seq = 0;
 
-                builder.OpenElement(seq++, "style");
-                builder.AddContent(seq++, 
+            builder.OpenElement(seq++, "style");
+            builder.AddContent(seq++,
 @".redux-debugger {
     display: flex;
     flex-wrap: wrap;
@@ -47,43 +45,44 @@ namespace BlazorRedux
 .redux-debugger__action-details {
     padding: .5em;
 }");
+            builder.CloseElement();
+
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "class", "redux-debugger");
+
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "class", "redux-debugger__action-history");
+
+            foreach (var entry in Store.History)
+            {
+                builder.OpenElement(seq++, "div");
+                builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry " + (entry == _selectedEntry ? "redux-debugger__historic-entry--selected" : ""));
+                //builder.AddAttribute(seq++, "onclick", () => SelectEntry(entry));
+                builder.AddAttribute(seq++, "onclick", EventCallback.Factory.Create<HistoricEntry<TState, object> >(null, ()=>SelectEntry(entry)));
+
+                builder.OpenElement(seq++, "div");
+                builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry__action");
+                builder.AddContent(seq++, entry.Action?.ToString() ?? "Initial state");
                 builder.CloseElement();
 
                 builder.OpenElement(seq++, "div");
-                builder.AddAttribute(seq++, "class", "redux-debugger");
+                builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry__time");
+                builder.AddContent(seq++, entry.Time.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"));
+                builder.CloseElement();
 
-                builder.OpenElement(seq++, "div");
-                builder.AddAttribute(seq++, "class", "redux-debugger__action-history");
+                builder.CloseElement(); // historic-entry
+            }
 
-                foreach (var entry in Store.History)
-                {
-                    builder.OpenElement(seq++, "div");
-                    builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry " + (entry == _selectedEntry ? "redux-debugger__historic-entry--selected" : ""));
-                    builder.AddAttribute(seq++, "onclick", () => SelectEntry(entry));
+            builder.CloseElement(); // action-history
 
-                    builder.OpenElement(seq++, "div");
-                    builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry__action");
-                    builder.AddContent(seq++, entry.Action?.ToString() ?? "Initial state");
-                    builder.CloseElement();
+            builder.OpenElement(seq++, "div");
+            builder.AddAttribute(seq++, "class", "redux-debugger__action-details");
+            seq = RenderActionDetails(builder, seq, _selectedEntry);
+            builder.CloseElement(); // action-details
 
-                    builder.OpenElement(seq++, "div");
-                    builder.AddAttribute(seq++, "class", "redux-debugger__historic-entry__time");
-                    builder.AddContent(seq++, entry.Time.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"));
-                    builder.CloseElement();
-
-                    builder.CloseElement(); // historic-entry
-                }
-
-                builder.CloseElement(); // action-history
-
-                builder.OpenElement(seq++, "div");
-                builder.AddAttribute(seq++, "class", "redux-debugger__action-details");
-                seq = RenderActionDetails(builder, seq, _selectedEntry);
-                builder.CloseElement(); // action-details
-
-                builder.CloseElement(); // redux-debugger
-            };
+            builder.CloseElement(); // redux-debugger
         }
+
 
         void SelectEntry(HistoricEntry<TState, object> entry)
         {

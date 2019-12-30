@@ -1,4 +1,5 @@
 ﻿using System;
+using BlazorRedux;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorRedux

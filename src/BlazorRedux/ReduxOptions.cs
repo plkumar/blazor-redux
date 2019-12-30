@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.JSInterop;
+using System.Text.Json;
 
 namespace BlazorRedux
 {
@@ -8,13 +8,13 @@ namespace BlazorRedux
         public ReduxOptions()
         {
             // Defaults
-            StateSerializer = state => Json.Serialize(state);
-            StateDeserializer = Json.Deserialize<TState>;
+            StateSerializer = state => JsonSerializer.Serialize(state);
+            StateDeserializer = JsonSerializer.Deserialize<TState>;
         }
-
+        
         public Reducer<TState, NewLocationAction> LocationReducer { get; set; }
         public Func<TState, string> GetLocation { get; set; }
         public Func<TState, string> StateSerializer { get; set; }
-        public Func<string, TState> StateDeserializer { get; set; }
+        public Func<string, JsonSerializerOptions, TState> StateDeserializer { get; set; }
     }
 }
