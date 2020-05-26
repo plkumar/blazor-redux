@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace BlazorRedux
     {
         private static readonly object SyncRoot = new object();
         private static bool _isReady;
+        public static IJSRuntime JSRuntime;
         private static readonly Queue<Tuple<string, string>> Q = new Queue<Tuple<string, string>>();
 
         public static event EventHandler Reset;
@@ -25,6 +27,7 @@ namespace BlazorRedux
             handler?.Invoke(null, e);
         }
 
+        [JSInvokable]
         public static void DevToolsReady()
         {
             lock (SyncRoot)
@@ -39,11 +42,13 @@ namespace BlazorRedux
             _isReady = true;
         }
 
+        [JSInvokable]
         public static void DevToolsReset()
         {
             OnReset(new EventArgs());
         }
 
+        [JSInvokable]
         public static void TimeTravelFromJs(string state)
         {
             OnTimeTravel(new StringEventArgs(state));
@@ -66,8 +71,10 @@ namespace BlazorRedux
 
         static void LogToJs(string action, string state)
         {
-            //((IJSInProcessRuntime)JSRuntime.Current).Invoke<bool>("Blazor.log", action, state);
-            //jsRuntime.InvokeAsync<bool>("Blazor.log", action, state);
+            if (JSRuntime != null)
+            {
+                JSRuntime.InvokeAsync<bool>("Blazor.log", action, state);
+            }
         }
     }
 }

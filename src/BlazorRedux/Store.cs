@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.JSInterop;
 
 namespace BlazorRedux
 {
@@ -11,6 +12,7 @@ namespace BlazorRedux
         private readonly Reducer<TState, TAction> _rootReducer;
         private readonly ReduxOptions<TState> _options;
         private NavigationManager _uriHelper;
+        public IJSRuntime JSRuntime { get; set; }
         private string _currentLocation;
         private bool _timeTraveling;
         private readonly object _syncRoot = new object();
@@ -27,6 +29,7 @@ namespace BlazorRedux
 
             State = initialState;
 
+            DevToolsInterop.JSRuntime = this.JSRuntime;
             DevToolsInterop.Reset += OnDevToolsReset;
             DevToolsInterop.TimeTravel += OnDevToolsTimeTravel;
             DevToolsInterop.Log("initial", _options.StateSerializer(State));
@@ -37,9 +40,8 @@ namespace BlazorRedux
             };
         }
 
-        internal void Init(NavigationManager uriHelper)
+        internal void Init(NavigationManager uriHelper, IJSRuntime jsRuntime=null)
         {
-
             if (_uriHelper != null || uriHelper == null) return;
 
             lock (_syncRoot)
@@ -48,6 +50,8 @@ namespace BlazorRedux
                 //_uriHelper.OnLocationChanged += OnLocationChanged;
                 _uriHelper.LocationChanged += OnLocationChanged;
             }
+
+            DevToolsInterop.JSRuntime = jsRuntime;
 
             // TODO: Queue up any other actions, and let this apply to the initial state.
             DispatchLocation(new NewLocationAction { Location = _uriHelper.Uri });

@@ -13,8 +13,9 @@ namespace BlazorRedux
             builder.AddContent(seq++,
 @"(function () {
 function timeTravel(state) {
-    const timeTravel = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'TimeTravelFromJs');
-    Blazor.platform.callMethod(timeTravel, null, [ Blazor.platform.toDotNetString(state) ]);
+    //const timeTravel = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'TimeTravelFromJs');
+    //Blazor.platform.callMethod(timeTravel, null, [ Blazor.platform.toDotNetString(state) ]);
+    DotNet.invokeMethodAsync('BlazorRedux','TimeTravelFromJs', state);
 }
 
 window[""Blazor""].log = (action, state) => {
@@ -46,8 +47,9 @@ if (!devTools) {
 devTools.subscribe((message) => {
     if (message.type === 'START') {
         console.log('Connected with Redux DevTools.');
-        const devToolsReady = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'DevToolsReady');
-        Blazor.platform.callMethod(devToolsReady, null, []);
+        //const devToolsReady = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'DevToolsReady');
+        //Blazor.platform.callMethod(devToolsReady, null, []);
+        DotNet.invokeMethodAsync('BlazorRedux','DevToolsReady');
     }
     else if (message.type === 'DISPATCH' && message.state) {
         // Time-traveling
@@ -65,8 +67,9 @@ devTools.subscribe((message) => {
         }
         else if (payload.type === 'RESET') {
             // Reset state
-            const devToolsReset = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'DevToolsReset');
-            Blazor.platform.callMethod(devToolsReset, null, []);
+            //const devToolsReset = Blazor.platform.findMethod('BlazorRedux', 'BlazorRedux', 'DevToolsInterop', 'DevToolsReset');
+            //Blazor.platform.callMethod(devToolsReset, null, []);
+             DotNet.invokeMethodAsync('BlazorRedux','DevToolsReset');
         }
         else {
             console.log('Unhandled payload from Redux DevTools:');

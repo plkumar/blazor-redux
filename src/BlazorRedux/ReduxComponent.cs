@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.JSInterop;
 
 namespace BlazorRedux
 {
@@ -8,6 +9,8 @@ namespace BlazorRedux
     {
         [Inject] public Store<TState, TAction> Store { get; set; }
         [Inject] private NavigationManager NavigationManager { get; set; }
+
+        [Inject] private IJSRuntime JSRuntime { get; set; }
 
         public TState State => Store.State;
 
@@ -20,7 +23,9 @@ namespace BlazorRedux
 
         protected override void OnInitialized()
         {
-            Store.Init(NavigationManager);
+            Store.JSRuntime = this.JSRuntime;
+
+            Store.Init(NavigationManager, this.JSRuntime);
             Store.Change += OnChangeHandler;
 
             ReduxDevTools = builder =>

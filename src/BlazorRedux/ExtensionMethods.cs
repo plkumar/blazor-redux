@@ -1,6 +1,7 @@
 ﻿using System;
 using BlazorRedux;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace BlazorRedux
 {
@@ -10,7 +11,7 @@ namespace BlazorRedux
             this IServiceCollection configure,
             TState initialState,
             Reducer<TState, TAction> rootReducer,
-            Action<ReduxOptions<TState>> options = null)
+            Action<ReduxOptions<TState>> options = null, IJSRuntime jSRuntime = null)
         {
             var reduxOptions = new ReduxOptions<TState>();
             options?.Invoke(reduxOptions);
