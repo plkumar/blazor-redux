@@ -29,7 +29,7 @@ namespace BlazorRedux
 
             State = initialState;
 
-            DevToolsInterop.JSRuntime = this.JSRuntime;
+            //DevToolsInterop.JSRuntime = this.JSRuntime;
             DevToolsInterop.Reset += OnDevToolsReset;
             DevToolsInterop.TimeTravel += OnDevToolsTimeTravel;
             DevToolsInterop.Log("initial", _options.StateSerializer(State));
