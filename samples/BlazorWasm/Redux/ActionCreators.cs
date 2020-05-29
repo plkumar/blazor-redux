@@ -1,19 +1,19 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorRedux;
-using BlazorServer.Data;
+using BlazorWasm.Data;
 using System.Text.Json;
+using System;
 
-namespace BlazorServer
+namespace BlazorWasm
 {
     public static class ActionCreators
     {
-        public static async Task LoadWeather(Dispatcher<IAction> dispatch, HttpClient http)
+        public static async Task LoadWeather(Dispatcher<IAction> dispatch)
         {
             dispatch(new ClearWeatherAction());
-            var forecastData = await http.GetStringAsync("/sample-data/weather.json");
 
-            var forecasts = JsonSerializer.Deserialize<WeatherForecast[]>(forecastData);
+            var forecasts = await new WeatherForecastService().GetForecastAsync(DateTime.Now);
 
             dispatch(new ReceiveWeatherAction
             {

@@ -1,6 +1,6 @@
 ﻿using BlazorRedux;
 
-namespace BlazorServer
+namespace BlazorWasm
 {
     public class MyAppComponent : ReduxComponent<BlazorAppState, IAction>
     {
