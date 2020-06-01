@@ -1,7 +1,7 @@
-﻿using BlazorServer.Data;
+﻿using BlazorWasm.Data;
 using System.Collections.Generic;
 
-namespace BlazorServer
+namespace BlazorWasm
 {
     public class BlazorAppState
     {

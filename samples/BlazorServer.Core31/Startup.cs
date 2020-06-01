@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorServer.Core31.Data;
+using BlazorServer.Data;
 using BlazorRedux;
 using System.Net.Http;
 
-namespace BlazorServer.Core31
+namespace BlazorServer
 {
     public class Startup
     {

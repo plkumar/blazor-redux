@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorServer.Core31.Pages
+namespace BlazorServer.Pages
 {
     public partial class Counter : MyAppComponent
     {

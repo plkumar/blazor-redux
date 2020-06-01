@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace BlazorServer.Core31.Pages
+namespace BlazorServer.Pages
 {
     public partial class FetchData : MyAppComponent
     {

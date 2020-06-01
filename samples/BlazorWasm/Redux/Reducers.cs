@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlazorRedux;
-using BlazorServer.Data;
+using BlazorWasm.Data;
 
-namespace BlazorServer
+namespace BlazorWasm
 {
     public static class Reducers
     {
@@ -22,15 +22,12 @@ namespace BlazorServer
 
         private static int CountReducer(int count, IAction action)
         {
-            switch (action)
+            return action switch
             {
-                case IncrementByOneAction _:
-                    return count + 1;
-                case IncrementByValueAction a:
-                    return count + a.Value;
-                default:
-                    return count;
-            }
+                IncrementByOneAction _ => count + 1,
+                IncrementByValueAction a => count + a.Value,
+                _ => count,
+            };
         }
 
         private static IEnumerable<WeatherForecast> ForecastsReducer(IEnumerable<WeatherForecast> forecasts,

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using BlazorRedux;
-using BlazorServer.Data;
+using BlazorWasm.Data;
 
-namespace BlazorServer
+namespace BlazorWasm
 {
     public class IncrementByOneAction : IAction
     {
